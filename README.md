@@ -3,7 +3,7 @@
 This microservice is built using AWS Lambda and provides a simple REST API for resizing images. It can be used in various applications where image resizing is required, such as eCommerce sites or image galleries.
 
 
-###Setup
+### Setup
 - Clone this repository to your local machine
 - Install the required dependencies using npm install
 - Create an S3 bucket to store the images
