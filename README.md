@@ -12,7 +12,8 @@ This microservice is built using AWS Lambda and provides a simple REST API for r
 - The endpoint URL will be displayed in the console upon successful deployment
 
 
-###Usage
+### Usage
+
 To resize an image, make a POST request to the API endpoint with the following parameters:
 
 - `key`: The S3 object key of the original image
@@ -37,7 +38,8 @@ Example response:
 ```
 
 
-###Architecture
+### Architecture
+
 This microservice is built using the following technologies:
 
 - AWS Lambda: Serverless computing platform for running the image resizing function
@@ -47,5 +49,6 @@ This microservice is built using the following technologies:
 - Amazon S3: Object storage service for storing the original and resized images
 
 
-###License
+### License
+
 This microservice is licensed under the MIT License. See the LICENSE file for details.
