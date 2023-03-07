@@ -1,54 +1,76 @@
-# AWS-Lambda-Image-Resizing-Microservice
+# Image Resizing Microservice using AWS Lambda
 
-This microservice is built using AWS Lambda and provides a simple REST API for resizing images. It can be used in various applications where image resizing is required, such as eCommerce sites or image galleries.
+This microservice allows you to resize images using AWS Lambda. The microservice takes an image as input and returns a resized image in the desired dimensions. The microservice is deployed using the AWS SAM (Serverless Application Model).
 
+### Prerequisites
 
-### Setup
-- Clone this repository to your local machine
-- Install the required dependencies using npm install
-- Create an S3 bucket to store the images
-- Update the configuration in serverless.yml file to specify the S3 bucket name and region
-- Deploy the microservice using serverless deploy command
-- The endpoint URL will be displayed in the console upon successful deployment
+Before deploying this microservice, ensure that you have the following installed:
+
+- AWS CLI
+- AWS SAM CLI
+- Python 3.8 or higher
+- Pillow library (to be installed in the virtual environment)
+
+### Installation
+
+- Clone this repository.
+- Create a virtual environment by running `python3 -m venv env`.
+- Activate the virtual environment by running `source env/bin/activate`.
+- Install the required packages by running `pip install -r requirements.txt`.
+- Navigate to the root of the repository and run sam build to build the AWS SAM package.
+- Run `sam deploy --guided` to deploy the application. Follow the prompts to configure the deployment.
 
 
 ### Usage
 
-To resize an image, make a POST request to the API endpoint with the following parameters:
+To resize an image, send a POST request to the endpoint provided by AWS API Gateway, with the following parameters:
 
-- `key`: The S3 object key of the original image
-- `width`: The desired width of the resized image
-- `height`: The desired height of the resized image
+`width`: The desired width of the resized image.
+`height`: The desired height of the resized image.
+`image`: The image file to be resized.
 
-Example request:
+The microservice will return the resized image in the response.
 
-```
-curl -X POST https://example.com/resize \
-  -H 'Content-Type: application/json' \
-  -d '{ "key": "example.jpg", "width": 400, "height": 300 }'
-```
 
-Example response:
+Example:
 
 ```
-{
-  "success": true,
-  "url": "https://example-bucket.s3.amazonaws.com/example_400x300.jpg"
+import requests
+
+url = 'https://your_api_gateway_endpoint'
+params = {
+    'width': 500,
+    'height': 500,
 }
+files = {
+    'image': open('path/to/image.jpg', 'rb')
+}
+
+response = requests.post(url, data=params, files=files)
+resized_image = response.content
 ```
+
+
+### Improvements
+
+- Added support for multiple image file types (JPEG, PNG, BMP, GIF, and TIFF).
+- Added error handling for invalid image dimensions and unsupported image file types.
+- Optimized image quality and reduced file size.
 
 
 ### Architecture
 
 This microservice is built using the following technologies:
 
+- Python 3.7+
+- AWS API Gateway
+- Pillow: Python Imaging library
 - AWS Lambda: Serverless computing platform for running the image resizing function
 - Serverless Framework: Framework for building and deploying serverless applications
-- Node.js: JavaScript runtime for executing the image resizing function
-- Sharp: Node.js module for image resizing and manipulation
+- Boto3: AWS SDK for Python
 - Amazon S3: Object storage service for storing the original and resized images
 
 
 ### License
 
-This microservice is licensed under the MIT License. See the LICENSE file for details.
+This microservice is licensed under the MIT License. See the [LICENSE](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) file for details.
